@@ -6,6 +6,6 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/encuestas', 'EncuestaController@index')->name('encuestas');
+Route::get('/home', 'EncuestaController@index')->name('home');
 
 //Route::get('/home', 'HomeController@index')->name('home');
