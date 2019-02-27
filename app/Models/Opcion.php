@@ -1,19 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Encuesta extends Model
+class Opcion extends Model
 {
-    protected $table = 'encuestas';
+    protected $table = 'opciones';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'id',
-        'titulo',
-        'descripcion',
+        'opcion',
+        'num_votos',
         'estado',
         'created_at',
         'updated_at',
