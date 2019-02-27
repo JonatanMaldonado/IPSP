@@ -35,9 +35,27 @@ class EncuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
+        $http_response = array("response" => false, "message" => "Error");
+        
+        if ($request->ajax()) {
+
+            $Encuesta = new Encuesta();
+            $Encuesta->titulo = $request->titulo;
+            $Encuesta->descripcion = $request->descripcion;
+            $Encuesta->created_by = auth()->user()->id;
+            $Encuesta->save();
+            
+            $http_response["response"] = true;
+            $http_response["message"] = "Guardado";
+        
+        }else{
+            $http_response["message"] = "Acceso no autorizado";
+        }
+        
+        return response()->json($http_response);
     }
 
     /**
