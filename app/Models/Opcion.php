@@ -21,5 +21,5 @@ class Opcion extends Model
 
     protected $guarded = [];
 
-
+    
 }

@@ -18,21 +18,23 @@
                 </div>
                 <textarea class="form-control autoHeight" rows="1" aria-label="With textarea">{{ $encuesta->descripcion }}</textarea>
             </div>
-            <div class="row">
+            <br>
+            <h5>Opciones</h5>
+
+            <div id="opcionesRow" class="row">
                 @foreach ($encuesta_opciones as $opcion)
-                    <button class="col-md-4 btn btn-success" style="margin:10px">{{ $opcion->opcion }}</button>
+                    <button class="btn btn-success" style="margin:10px">{{ $opcion->opcion->opcion }}</button>
                 @endforeach
-    
-                <button class="btn btn-primary col-4" style="margin:10px">+</button>
             </div>
-            
+            <button class="btn btn-primary btn-block" style="margin:10px" data-toggle="modal" data-target="#crearOpcionModal">+</button>
         </div>
     </div>
+    {{-- Modal para crear opciones en la encuesta --}}
     <div class="modal fade" id="crearOpcionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Crear Encuesta</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Crear Opcion</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,29 +42,68 @@
     
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="inputEmail4">Titulo</label>
-                        <input type="text" class="form-control" id="input_titulo" name="titulo">
-                        <div id="tituloAlert" class="alert alert-danger" role="alert">
-                            <span>La encuesta debe tener un titulo</span>
+                        <label for="inputEmail4">Nombre</label>
+                        <input type="text" class="form-control" id="input_opcion" name="opcion">
+                        <div id="opcionAlertDanger" class="alert alert-danger" role="alert">
+                            <span>¡La opcion debe tener un nombre!</span>
+                        </div>
+                        <div id="opcionAlertSuccess" class="alert alert-success" role="alert">
+                            <span>¡La opcion se creo correctamente!</span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword4">Descripcion</label>
-                        <input type="text" class="form-control" id="input_descripcion" name="descripcion">
-                    </div>
-    
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="btnCrearEncuesta" class="btn btn-success">Crear</button>
+                    <button id="btnCrearOpcion" x-idencuesta="{{ $encuesta->idencuesta }}" class="btn btn-success">Crear</button>
                 </div>
             </div>
         </div>
     </div>
     
     <script type="text/javascript">
-    
-		$(".autoHeight").each(function(){;
-			$(this).height($(this).prop('scrollHeight'))
-		});
+        $(function(){
+            $(".autoHeight").each(function(){;
+			    $(this).height($(this).prop('scrollHeight'))
+            });
 
+            var input_vacio = $('#opcionAlertDanger');
+            var opcion_creada = $('#opcionAlertSuccess');
+            input_vacio.hide();
+            opcion_creada.hide();
+
+            $('#btnCrearOpcion').on('click', function(){
+                var opcion = $('#input_opcion').val();
+                var id = $(this).attr('x-idencuesta');
+                if(opcion.length > 0){
+                    $.ajax({
+                        data: { _token: "{{ csrf_token() }}", id: id, opcion: opcion },
+                        url:  "{{ route('opcion.fn.crear') }}",
+                        type: 'POST',
+                        dataType: "json",
+                        success:  function (response) { 
+                            if(response.response){
+                                input_vacio.hide();
+                                opcion_creada.show();
+                                $('#input_opcion').val('');
+                                $("#opcionesRow").load(" #opcionesRow");
+                            }else{
+                            console.log(response.message)
+                            }
+                        
+                        },
+                        error: function(xhr, testStatus, errorThrown){
+                            console.log(xhr, testStatus, errorThrown);
+                            console.log("Error al realizar la petición, favor comunicarse con su administrador")
+                        }
+                    });
+
+                }else{
+                    opcion_creada.hide();
+                    input_vacio.show();
+                }
+            });
+
+
+        });
     </script>
 @endsection

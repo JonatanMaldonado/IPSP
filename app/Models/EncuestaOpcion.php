@@ -22,6 +22,6 @@ class EncuestaOpcion extends Model
     protected $guarded = [];
 
     public function opcion(){
-        return $this->belongsTo('App\Models\Opcion', 'idopcion')->with('usuario');
+        return $this->belongsTo('App\Models\Opcion', 'idopcion');
     }
 }

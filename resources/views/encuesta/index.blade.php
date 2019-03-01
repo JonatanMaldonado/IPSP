@@ -31,7 +31,6 @@
             </div>
 
             <div class="modal-body">
-                {{-- Form::open([ 'route'=>'encuesta.crear', 'method'=>'POST', 'enctype'=>'multipart/form-data' ]) --}}
                 <div class="form-group">
                     <label for="inputEmail4">Titulo</label>
                     <input type="text" class="form-control" id="input_titulo" name="titulo">
@@ -43,10 +42,10 @@
                     <label for="inputPassword4">Descripcion</label>
                     <input type="text" class="form-control" id="input_descripcion" name="descripcion">
                 </div>
-
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button id="btnCrearEncuesta" class="btn btn-success">Crear</button>
-                {{-- Form::close() --}}
             </div>
         </div>
     </div>

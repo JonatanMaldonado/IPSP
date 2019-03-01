@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Encuesta;
+use App\Models\Opcion;
+use App\Models\EncuestaOpcion;
 
 class EncuestaController extends Controller
 {
@@ -31,11 +33,11 @@ class EncuestaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Crea encuestas en la pagina de inicio con un Ajax.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function crearEncuesta(Request $request)
     {
         
         $http_response = array("response" => false, "message" => "Error");
@@ -47,7 +49,10 @@ class EncuestaController extends Controller
             $Encuesta->descripcion = $request->descripcion;
             $Encuesta->created_by = auth()->user()->id;
             $Encuesta->save();
+
+            $encuesta_actual = Encuesta::where('estado', 'Activo')->orderBy('idencuesta', 'DESC')->first();
             
+            $http_response["encuesta"] = $encuesta_actual->idencuesta;
             $http_response["response"] = true;
             $http_response["message"] = "Guardado";
         
@@ -59,14 +64,40 @@ class EncuestaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Funcion para crear opciones con Ajax en la pantalla de una encuesta.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function crearOpcion(Request $request){
+        
+        $http_response = array("response" => false, "message" => "Error");
+        
+        if ($request->ajax()) {
+            
+            $opcion = new Opcion();
+            $opcion->opcion = $request->opcion;
+            $opcion->created_by = auth()->user()->id;
+            $opcion->save();
+
+            $encuesta_actual = Encuesta::where('estado', 'Activo')->find($request->id);
+            $opcion_actual = Opcion::where('estado', 'Activo')->orderBy('idopcion', 'DESC')->first();
+
+            $encuesta_opcion = new EncuestaOpcion();
+            $encuesta_opcion->idencuesta = $encuesta_actual->idencuesta;
+            $encuesta_opcion->idopcion = $opcion_actual->idopcion;
+            $encuesta_opcion->created_by = auth()->user()->id;
+            $encuesta_opcion->save();
+
+            $http_response["encuesta"] = $request->id;
+            $http_response["opcion"] = $request->opcion;
+            $http_response["response"] = true;
+            $http_response["message"] = "Guardado";
+        
+        }else{
+            $http_response["message"] = "Acceso no autorizado";
+        }
+        
+        return response()->json($http_response);
     }
 
     /**
