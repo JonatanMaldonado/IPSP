@@ -23,10 +23,16 @@
 
             <div id="opcionesRow" class="row">
                 @foreach ($encuesta_opciones as $opcion)
-                    <button class="btn btn-success" style="margin:10px">{{ $opcion->opcion->opcion }}</button>
+                    <button class="btn btn-outline-success btn-block">{{ $opcion->opcion->opcion }}</button>
                 @endforeach
             </div>
-            <button class="btn btn-primary btn-block" style="margin:10px" data-toggle="modal" data-target="#crearOpcionModal">+</button>
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#crearOpcionModal">+</button>
+            <a href="#demo" class="btn btn-primary" data-toggle="collapse">Simple collapsible</a>
+  <div id="demo" class="collapse">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </div>
         </div>
     </div>
     {{-- Modal para crear opciones en la encuesta --}}
@@ -62,6 +68,7 @@
     
     <script type="text/javascript">
         $(function(){
+            
             $(".autoHeight").each(function(){;
 			    $(this).height($(this).prop('scrollHeight'))
             });
