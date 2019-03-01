@@ -8,10 +8,9 @@ class Encuesta extends Model
 {
     protected $table = 'encuestas';
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'idencuesta';
 
     protected $fillable = [
-        'id',
         'titulo',
         'descripcion',
         'estado',
@@ -21,4 +20,8 @@ class Encuesta extends Model
     ];
 
     protected $guarded = [];
+
+    public function encuesta_opciones(){
+        return $this->hasMany('App\Models\EncuestaOpcion', 'idencuesta')->with('opcion')->with('usuario')->where('estado', 'Activo');
+    }
 }

@@ -8,10 +8,9 @@ class Opcion extends Model
 {
     protected $table = 'opciones';
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'idopcion';
 
     protected $fillable = [
-        'id',
         'opcion',
         'num_votos',
         'estado',
@@ -21,4 +20,6 @@ class Opcion extends Model
     ];
 
     protected $guarded = [];
+
+
 }

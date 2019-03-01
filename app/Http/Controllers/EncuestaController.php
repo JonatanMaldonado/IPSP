@@ -77,7 +77,12 @@ class EncuestaController extends Controller
      */
     public function show($id)
     {
-        //
+        $encuesta = Encuesta::where('estado', 'Activo')->find($id);
+
+
+        return view('encuesta.show')
+        ->with('encuesta', $encuesta)
+        ->with('encuesta_opciones', $encuesta->encuesta_opciones);
     }
 
     /**

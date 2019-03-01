@@ -15,13 +15,13 @@ class CreateEncuestaOpcionTable extends Migration
     {
         Schema::create('encuesta_opcion', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_encuesta')->unsigned();
-            $table->integer('id_opcion')->unsigned();
+            $table->integer('idencuesta')->unsigned();
+            $table->integer('idopcion')->unsigned();
             $table->enum('estado', ['Activo', 'Inactivo'])->default('Activo');
             $table->timestamps();
             $table->integer('created_by')->unsigned();
-            $table->foreign('id_encuesta')->references('id')->on('encuestas');
-            $table->foreign('id_opcion')->references('id')->on('opciones');
+            $table->foreign('idencuesta')->references('idencuesta')->on('encuestas');
+            $table->foreign('idopcion')->references('idopcion')->on('opciones');
             $table->foreign('created_by')->references('id')->on('users');
         });
     }

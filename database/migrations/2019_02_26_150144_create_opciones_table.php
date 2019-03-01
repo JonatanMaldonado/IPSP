@@ -14,9 +14,9 @@ class CreateOpcionesTable extends Migration
     public function up()
     {
         Schema::create('opciones', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('idopcion');
             $table->string('opcion', 25);
-            $table->integer('num_votos');
+            $table->integer('num_votos')->default(0);
             $table->enum('estado', ['Activo', 'Inactivo'])->default('Activo');
             $table->timestamps();
             $table->integer('created_by')->unsigned();

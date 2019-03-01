@@ -7,5 +7,10 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'EncuestaController@index')->name('home');
+Route::get('/encuesta/{id}', 'EncuestaController@show')->name('encuesta.show');
+
+//Ajax de encuestas
 Route::post('/encuesta/fn/crear', 'EncuestaController@create')->name('encuesta.fn.crear');
+
+
 //Route::get('/home', 'HomeController@index')->name('home');

@@ -11,9 +11,8 @@ class EncuestaOpcion extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id',
-        'id_encuesta',
-        'id_opcion',
+        'idencuesta',
+        'idopcion',
         'estado',
         'created_at',
         'updated_at',
@@ -21,4 +20,8 @@ class EncuestaOpcion extends Model
     ];
 
     protected $guarded = [];
+
+    public function opcion(){
+        return $this->belongsTo('App\Models\Opcion', 'idopcion')->with('usuario');
+    }
 }
