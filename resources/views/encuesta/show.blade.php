@@ -78,6 +78,13 @@
             input_vacio.hide();
             opcion_creada.hide();
 
+            $('#input_opcion').on('keyup', function(event){
+                if(event.which == 13){
+                    console.log('si funciona xd x3')
+                    input_vacio.alert()
+                }
+            });
+
             $('#btnCrearOpcion').on('click', function(){
                 var opcion = $('#input_opcion').val();
                 var id = $(this).attr('x-idencuesta');
@@ -109,6 +116,8 @@
                     input_vacio.show();
                 }
             });
+
+            
 
 
         });
