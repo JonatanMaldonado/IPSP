@@ -64,6 +64,32 @@ class EncuestaController extends Controller
     }
 
     /**
+     * Ajax para editar una encuesta en su pagina de detalle.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editarEncuesta(Request $request){
+        
+        $http_response = array("response" => false, "message" => "Error");
+        
+        if ($request->ajax()) {
+            
+            $encuesta = Encuesta::find($request->id);
+            $encuesta->titulo = $request->titulo;
+            $encuesta->descripcion = $request->descripcion;
+            $encuesta->save();
+
+            $http_response["response"] = true;
+            $http_response["message"] = "Guardado";
+        
+        }else{
+            $http_response["message"] = "Acceso no autorizado";
+        }
+        
+        return response()->json($http_response);
+    }
+
+    /**
      * Funcion para crear opciones con Ajax en la pantalla de una encuesta.
      *
      * @return \Illuminate\Http\Response

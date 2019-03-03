@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header text-center"> <i class="fas fa-user"></i> ¡Bienvenido {{ Auth::user()->name }}!</div>
+    <div class="card-header text-center">¡Bienvenido {{ Auth::user()->name }}!</div>
     <div class="card-body">
         {{-- Boton para activar el modal de encuestas --}}
-        <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal"><i class="fas fa-plus"> Crear Encuesta</i></button>
+        <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal">Crear Encuesta</button>
         <br>
         <div id="encuestasList">
             @forelse ($encuestas as $encuesta)

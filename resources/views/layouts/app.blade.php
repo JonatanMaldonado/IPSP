@@ -24,7 +24,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #EFF8FB;">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -54,11 +54,11 @@
                             @endif
                         @else
                             <div class="dropdown-divider"></div>
-                                <a class="nav-link" href="#">{{ Auth::user()->name }}</a>
+                                <a class="nav-link" href="#"><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
 
                                 <div>
                                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Cerrar Sesión
+                                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
