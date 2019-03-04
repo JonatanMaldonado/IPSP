@@ -1,6 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+        .snackbar {
+    visibility: hidden;
+    min-width: 100px;
+    /* Center align */
+    margin-left: -50px; 
+    border-radius: 5px;
+    position: fixed;
+    z-index: 10;
+    /* Snackbar position */
+    top: 10%;
+    right: 1%;
+}
+
+.snackbar-show {
+    visibility: visible;
+
+/* Animacion: fade in y out de 0.5s de duracion.
+En el fade out hay un retraso de 2.5 segundos */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s;
+}
+
+/* Animaciones para hacer fade in y out.
+Puedes usar jQuery si te sientes mas comodo
+y asi eliminas  las animaciones*/
+@-webkit-keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+        </style>
     <div class="card">
         <div class="card-header text-center">
             <h5>Editar Encuesta</h5>
@@ -53,6 +99,7 @@
             </div>
         </div>
     </div>
+    <div id="toast" class="snackbar btn-dark px-3 py-3"></div>
     {{-- Modal para crear opciones en la encuesta --}}
     <div class="modal fade" id="crearOpcionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -88,7 +135,7 @@
         $(function(){
             //Funcion para ajustar el tamaño del textbox
             $(".autoHeight").each(function(){;
-			    $(this).height($(this).prop('scrollHeight'))
+			    $(this).height($(this).prop('scrollHeight'));
             });
 
 
@@ -175,11 +222,30 @@
                     });
                     
                 }else{
-                    actualizarAlertDanger.show();
-                    actualizarAlertSuccess.hide();
+                    $('#toast').text('Debes editar algo.');
+                    showToast();
                 }
             });
 
+            //Funcion para mostrar toast
+            function showToast(param) {
+                var snackbarHTML = document.querySelectorAll(".snackbar"),
+                    element;
+                for (element of snackbarHTML) {
+                    // Check if param is an Event or string
+                    if (param instanceof Event && param.currentTarget.hasAttribute("data-text")) {
+                        element.innerHTML = param.currentTarget.getAttribute("data-text");
+                    } else if (typeof param == "string" && !Utils.is_empty(param)) {
+                        element.innerHTML = param;
+                    }
+
+                    element.classList.add("snackbar-show");
+
+                    setTimeout(function() {
+                        element.classList.remove("snackbar-show");
+                    }, 5000);
+                }
+            }
 
         });
     </script>
