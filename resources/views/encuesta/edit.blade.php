@@ -118,10 +118,9 @@
 
             $('#btnCrearOpcion').on('click', function(){
                 var opcion = $('#input_opcion').val();
-                var id = $(this).attr('x-idencuesta');
                 if(opcion.length > 0){
                     $.ajax({
-                        data: { _token: "{{ csrf_token() }}", id: id, opcion: opcion },
+                        data: { _token: "{{ csrf_token() }}", id: "{{ $encuesta->idencuesta }}", opcion: opcion },
                         url:  "{{ route('opcion.fn.crear') }}",
                         type: 'POST',
                         dataType: "json",
@@ -155,11 +154,10 @@
                 var descripcion_db = '{{ $encuesta->descripcion }}';
                 var titulo_actual = $('#txtTitulo').val();
                 var descripcion_actual = $('#txtDescripcion').val();
-                var idencuesta = $(this).attr('x-idencuesta');
 
                 if(titulo_actual.trim() != titulo_db || descripcion_actual.trim() != descripcion_db){
                     $.ajax({
-                        data: { _token: "{{ csrf_token() }}", id: idencuesta, titulo: titulo_actual.trim(), descripcion: descripcion_actual.trim() },
+                        data: { _token: "{{ csrf_token() }}", id: "{{ $encuesta->idencuesta }}", titulo: titulo_actual.trim(), descripcion: descripcion_actual.trim() },
                         url:  "{{ route('encuesta.fn.editar') }}",
                         type: 'PUT',
                         dataType: "json",
@@ -180,8 +178,8 @@
                     });
                     
                 }else{
-                    $('#toast').text('Debes editar algo.');
-                    showToast();
+                    actualizarAlertDanger.show("slow")
+                    actualizarAlertSuccess.hide()
                 }
             });
 

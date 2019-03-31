@@ -4,9 +4,12 @@
 <div class="card">
     <div class="card-header text-center">¡Bienvenido {{ Auth::user()->name }}!</div>
     <div class="card-body">
-        {{-- Boton para activar el modal de encuestas --}}
-        <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal">Crear Encuesta</button>
-        <br>        
+        
+        @if (auth()->user()->user_type == 'Admin')
+            {{-- Boton para activar el modal de encuestas --}}
+            <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal">Crear Encuesta</button>
+            <br>
+        @endif        
 
         <div class="" id="encuestaList">
             @forelse ($encuestas as $encuesta)
