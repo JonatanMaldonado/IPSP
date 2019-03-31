@@ -6,15 +6,26 @@
     <div class="card-body">
         {{-- Boton para activar el modal de encuestas --}}
         <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal">Crear Encuesta</button>
-        <br>
-        <div id="encuestasList">
+        <br>        
+
+        <div class="" id="encuestaList">
             @forelse ($encuestas as $encuesta)
-                <a href="/encuesta/{{ $encuesta->idencuesta }}" class="btn btn-sm btn-outline-secondary">{{ $encuesta->idencuesta }}. {{ $encuesta->titulo }}</a><br><br>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $encuesta->titulo }}</h5>
+                        <p class="card-text">{{ $encuesta->descripcion }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{ route('encuesta.show', $encuesta->idencuesta) }}" class="btn btn-primary col-5">Votar</a>
+                        <a href="{{ route('encuesta.showEdit', $encuesta->idencuesta) }}" class="btn btn-primary col-5">Editar</a>
+                    </div>
+                </div> <br>
             @empty
-                <span class="text-muted"><em>No se encontraron registros.</em></span>
+                <span class="text-muted"><em>No se encontro ninguna encuesta.</em></span>
             @endforelse
-            
+
             <div class="row justify-content-center">{{ $encuestas->links() }}</div>
+
         </div>
     </div>
 </div>
@@ -69,12 +80,8 @@
                         dataType: "json",
                         success:  function (response) { 
                             if(response.response){
-                                $('#input_titulo').val('');
-                                $('#input_descripcion').val('');
-                                $('#crearEncuestaModal').modal('hide');
-                                $("#encuestasList").load(" #encuestasList");
-                                $('#tituloAlert').hide();
-                                
+                                $("#encuestaList").load(" #encuestaList");
+                                $(location).attr('href', 'encuesta/editar/'+ response.encuesta +'')
                             }else{
                             console.log(response.message)
                             }

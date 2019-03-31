@@ -49,10 +49,8 @@ class EncuestaController extends Controller
             $Encuesta->descripcion = $request->descripcion;
             $Encuesta->created_by = auth()->user()->id;
             $Encuesta->save();
-
-            $encuesta_actual = Encuesta::where('estado', 'Activo')->orderBy('idencuesta', 'DESC')->first();
             
-            $http_response["encuesta"] = $encuesta_actual->idencuesta;
+            $http_response["encuesta"] = $Encuesta->idencuesta;
             $http_response["response"] = true;
             $http_response["message"] = "Guardado";
         
@@ -124,6 +122,22 @@ class EncuestaController extends Controller
         }
         
         return response()->json($http_response);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showEdit($id)
+    {
+        $encuesta = Encuesta::where('estado', 'Activo')->find($id);
+
+
+        return view('encuesta.edit')
+        ->with('encuesta', $encuesta)
+        ->with('encuesta_opciones', $encuesta->encuesta_opciones);
     }
 
     /**

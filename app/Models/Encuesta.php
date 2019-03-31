@@ -22,6 +22,6 @@ class Encuesta extends Model
     protected $guarded = [];
 
     public function encuesta_opciones(){
-        return $this->hasMany('App\Models\EncuestaOpcion', 'idencuesta')->with('opcion')->where('estado', 'Activo');
+        return $this->hasMany('App\Models\EncuestaOpcion', 'idencuesta')->where('estado', 'Activo');
     }
 }
