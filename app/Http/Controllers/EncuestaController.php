@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Encuesta;
 use App\Models\Opcion;
 use App\Models\EncuestaOpcion;
+use App\Models\VotoUser;
 
 class EncuestaController extends Controller
 {
@@ -150,10 +151,12 @@ class EncuestaController extends Controller
     {
         $encuesta = Encuesta::where('estado', 'Activo')->find($id);
 
+        $validacion = VotoUser::where('iduser', auth()->user()->id)->where('idencuesta', $encuesta->idencuesta)->first();
 
         return view('encuesta.show')
         ->with('encuesta', $encuesta)
-        ->with('encuesta_opciones', $encuesta->encuesta_opciones);
+        ->with('encuesta_opciones', $encuesta->encuesta_opciones)
+        ->with('validacion', $validacion);
     }
 
 }
