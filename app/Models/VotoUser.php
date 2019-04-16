@@ -14,7 +14,7 @@ class Encuesta extends Model
         'iduser',
         'idencuesta',
         'idopcion',
-        'voto'
+        'voto',
         'created_at',
         'updated_at'
     ];
