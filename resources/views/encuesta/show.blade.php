@@ -21,7 +21,7 @@
                 @if ($validacion->voto == 'No')
                     <div class="mb-3">
                         @forelse ($encuesta_opciones as $opcion)
-                            <button class="btn btn-primary btn-block" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
+                            <button class="btn btn-primary btn-block votar" style="margin-bottom: 10px;" x-idopcion="{{ $opcion->opcion->idopcion }}">{{ $opcion->opcion->opcion }}</button>
                         @empty
                             <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
                         @endforelse
@@ -59,4 +59,16 @@
         @endif
         
     </div>
+
+    <script>
+        $(function(){
+
+            $('.votar').on('click', function(){
+                var idopcion = $(this).attr('x-idopcion');
+                var idencuesta = {{ $encuesta->idencuesta }};
+
+                alert('Voto listo ' + idopcion)
+            });
+        });
+    </script>
 @endsection
