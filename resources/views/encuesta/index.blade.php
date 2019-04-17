@@ -19,8 +19,12 @@
                         <p class="card-text">{{ $encuesta->descripcion }}</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="{{ route('encuesta.show', $encuesta->idencuesta) }}" class="btn btn-primary col-5">Votar</a>
-                        <a href="{{ route('encuesta.showEdit', $encuesta->idencuesta) }}" class="btn btn-primary col-5">Editar</a>
+                        
+                        <a href="{{ route('encuesta.show', $encuesta->idencuesta) }}" class="btn btn-success col-5">Votar</a>
+                        
+                        @if (auth()->user()->user_type == 'Admin')
+                            <a href="{{ route('encuesta.showEdit', $encuesta->idencuesta) }}" class="btn btn-success col-5">Editar</a>
+                        @endif
                     </div>
                 </div> <br>
             @empty

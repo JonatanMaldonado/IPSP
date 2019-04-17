@@ -72,12 +72,11 @@ class EncuestaController extends Controller
         $http_response = array("response" => false, "message" => "Error");
         
         if ($request->ajax()) {
-            
             $encuesta = Encuesta::find($request->id);
             $encuesta->titulo = $request->titulo;
             $encuesta->descripcion = $request->descripcion;
             $encuesta->save();
-
+            
             $http_response["response"] = true;
             $http_response["message"] = "Guardado";
         

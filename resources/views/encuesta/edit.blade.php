@@ -45,7 +45,8 @@
             <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#crearOpcionModal">+</button>
         </div>
         <div class="card-footer text-center">
-            <button id="btnActualizarEncuesta" x-idencuesta="{{ $encuesta->idencuesta }}" class="btn btn-outline-info">Actualizar</button>
+            <button id="btnActualizarEncuesta" class="btn btn-outline-info">Actualizar</button>
+            <a class="btn btn-outline-info" href="{{ route('encuesta.show', $encuesta->idencuesta) }}">Votar</a>
             <div id="actualizarAlertDanger" class="alert alert-danger" role="alert">
                 <span>¡Edite el titulo o la descripcion!</span>
             </div>
@@ -80,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="btnCrearOpcion" x-idencuesta="{{ $encuesta->idencuesta }}" class="btn btn-success">Crear</button>
+                    <button id="btnCrearOpcion" class="btn btn-success">Crear</button>
                 </div>
             </div>
         </div>
