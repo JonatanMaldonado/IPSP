@@ -152,10 +152,45 @@ class EncuestaController extends Controller
 
         $validacion = VotoUser::where('iduser', auth()->user()->id)->where('idencuesta', $encuesta->idencuesta)->first();
 
+        $color = ['bg-primary', 'bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-dark'];
+
         return view('encuesta.show')
         ->with('encuesta', $encuesta)
         ->with('encuesta_opciones', $encuesta->encuesta_opciones)
-        ->with('validacion', $validacion);
+        ->with('validacion', $validacion)
+        ->with('color', $color);
+    }
+
+    /**
+     * Hace la funcionalidad de votar cuando elije una opcion.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function votoUser(Request $request){
+        
+        $http_response = array("response" => false, "message" => "Error");
+        
+        if ($request->ajax()) {
+        
+            $voto = VotoUser::where('idencuesta', $request->idencuesta)->where('iduser', auth()->user()->id)->where('voto', 'No')->first();
+            $voto->voto = 'Si';
+            $voto->idopcion = $request->idopcion;
+            $voto->save();
+
+            $opcion = Opcion::find($request->idopcion);
+            $opcion->num_votos = $opcion->num_votos + 1;
+            $opcion->save();
+
+            $http_response["voto"] = $voto;
+            $http_response["response"] = true;
+            $http_response["message"] = "Guardado";
+        
+        }else{
+            $http_response["message"] = "Acceso no autorizado";
+        }
+        
+        return response()->json($http_response);
     }
 
 }

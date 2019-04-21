@@ -21,10 +21,11 @@
                 @if ($validacion->voto == 'No')
                     <div class="mb-3">
                         @forelse ($encuesta_opciones as $opcion)
-                            <button class="btn btn-primary btn-block votar" style="margin-bottom: 10px;" x-idopcion="{{ $opcion->opcion->idopcion }}">{{ $opcion->opcion->opcion }}</button>
+                            <button class="btn btn-primary btn-block votar" style="margin-bottom: 10px;" x-idopcion="{{ $opcion->opcion->idopcion }}">{{ $opcion->opcion->opcion }}</button>    
                         @empty
                             <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
                         @endforelse
+                        <a class="btn btn-outline-dark btn-block resultados" data-toggle="modal" data-target="#exampleModal">Resultados</a>
                     </div>  
                 @else
                     <div class="mb-3">
@@ -33,6 +34,7 @@
                         @empty
                             <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
                         @endforelse
+                        <a class="btn btn-outline-dark btn-block resultados" data-toggle="modal" data-target="#exampleModal">Resultados</a>
                     </div>
                 @endif
             @else
@@ -46,9 +48,37 @@
                     @empty
                         <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
                     @endforelse
+                    <a class="btn btn-outline-dark btn-block resultados" data-toggle="modal" data-target="#exampleModal">Resultados</a>
                 </div>
             @endif
             
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Resultados</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @forelse ($encuesta_opciones as $key => $item)
+                                {{ $item->opcion->opcion }}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color[$key] }}" role="progressbar" style="width: 40%"></div>
+                                </div>  
+                            @empty
+                                <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
+                            @endforelse
+                                
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
         </div>
 
@@ -64,10 +94,37 @@
         $(function(){
 
             $('.votar').on('click', function(){
+                var opcion = $(this).text();
                 var idopcion = $(this).attr('x-idopcion');
-                var idencuesta = {{ $encuesta->idencuesta }};
+                var idencuesta = '{{ $encuesta->idencuesta }}';
+                var confirmacion = confirm(`¿Seguro que quiere votar por: ${opcion}?`);
 
-                alert('Voto listo ' + idopcion)
+                if (confirmacion == true) {
+                    $.ajax({
+                        data: { _token: "{{ csrf_token() }}", idopcion: idopcion, idencuesta: idencuesta },
+                        url:  "{{ route('encuesta.fn.voto_user') }}",
+                        type: 'PUT',
+                        dataType: "json",
+                        success:  function (response) { 
+                            if(response.response){
+                                $('.votar').attr("disabled", true);
+                                alert('Votaste por: ' + opcion);
+                            }else{
+                            //Materialize.toast(response.message, 4000)
+                            }
+                        
+                        },
+                        error: function(xhr, testStatus, errorThrown){
+                            console.log(xhr, testStatus, errorThrown);
+                            //Materialize.toast("Error al realizar la petición, favor comunicarse con su administrador", 4000)
+                        }
+                    });
+                }
+                
+            });
+
+            $('.resultados').on('click', function(){
+                
             });
         });
     </script>
