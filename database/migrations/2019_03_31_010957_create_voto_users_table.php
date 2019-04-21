@@ -14,7 +14,7 @@ class CreateVotoUsersTable extends Migration
     public function up()
     {
         Schema::create('voto_users', function (Blueprint $table) {
-            $table->increments('idvoto_users');
+            $table->increments('idvoto_user');
             $table->integer('iduser')->unsigned();
             $table->integer('idencuesta')->unsigned();
             $table->integer('idopcion')->unsigned();

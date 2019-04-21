@@ -13,8 +13,8 @@ class CreateEncuestaOpcionTable extends Migration
      */
     public function up()
     {
-        Schema::create('encuesta_opcion', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('encuesta_opciones', function (Blueprint $table) {
+            $table->increments('idencuesta_opcion');
             $table->integer('idencuesta')->unsigned();
             $table->integer('idopcion')->unsigned();
             $table->enum('estado', ['Activo', 'Inactivo'])->default('Activo');
@@ -33,6 +33,6 @@ class CreateEncuestaOpcionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('encuesta_opcion');
+        Schema::dropIfExists('encuesta_opciones');
     }
 }

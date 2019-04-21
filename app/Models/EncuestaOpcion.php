@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class EncuestaOpcion extends Model
 {
-    protected $table = 'encuesta_opcion';
+    protected $table = 'encuesta_opciones';
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'idencuesta_opcion';
 
     protected $fillable = [
         'idencuesta',
