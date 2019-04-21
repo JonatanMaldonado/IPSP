@@ -62,12 +62,17 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="resultados">
                             @forelse ($encuesta_opciones as $key => $item)
+                                @php
+                                    $valor = $item->opcion->num_votos / $total * 100;
+                                    $valor = round($valor);
+                                @endphp
+
                                 {{ $item->opcion->opcion }}
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color[$key] }}" role="progressbar" style="width: 40%"></div>
-                                </div>  
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color[$key] }} text-dark font-weight-bold" role="progressbar" style="width: {{ $valor }}%">{{ $valor }}%</div>
+                                </div><hr>
                             @empty
                                 <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
                             @endforelse
@@ -124,7 +129,7 @@
             });
 
             $('.resultados').on('click', function(){
-                
+                $('#resultados').load(' #resultados');
             });
         });
     </script>

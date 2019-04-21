@@ -154,11 +154,18 @@ class EncuestaController extends Controller
 
         $color = ['bg-primary', 'bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-dark'];
 
+        $total = 0;
+
+        foreach ($encuesta->encuesta_opciones as $key => $value) {
+            $total = $total + $value->opcion->num_votos;
+        }
+
         return view('encuesta.show')
         ->with('encuesta', $encuesta)
         ->with('encuesta_opciones', $encuesta->encuesta_opciones)
         ->with('validacion', $validacion)
-        ->with('color', $color);
+        ->with('color', $color)
+        ->with('total', $total);
     }
 
     /**
