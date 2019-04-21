@@ -45,8 +45,8 @@
             <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#crearOpcionModal">+</button>
         </div>
         <div class="card-footer text-center">
-            <button id="btnActualizarEncuesta" class="btn btn-outline-info">Actualizar</button>
-            <a class="btn btn-outline-info" href="{{ route('encuesta.show', $encuesta->idencuesta) }}">Votar</a>
+            <button id="btnActualizarEncuesta" class="btn btn-outline-success">Actualizar</button>
+            <a class="btn btn-outline-success" href="{{ route('encuesta.show', $encuesta->idencuesta) }}">Votar</a>
             <div id="actualizarAlertDanger" class="alert alert-danger" role="alert">
                 <span>¡Edite el titulo o la descripcion!</span>
             </div>
