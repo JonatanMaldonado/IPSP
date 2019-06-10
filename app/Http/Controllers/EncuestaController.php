@@ -8,6 +8,7 @@ use App\Models\Encuesta;
 use App\Models\Opcion;
 use App\Models\EncuestaOpcion;
 use App\Models\VotoUser;
+use App\User;
 
 class EncuestaController extends Controller
 {
@@ -45,13 +46,24 @@ class EncuestaController extends Controller
         
         if ($request->ajax()) {
 
-            $Encuesta = new Encuesta();
-            $Encuesta->titulo = $request->titulo;
-            $Encuesta->descripcion = $request->descripcion;
-            $Encuesta->created_by = auth()->user()->id;
-            $Encuesta->save();
+            $encuesta = new Encuesta();
+            $encuesta->titulo = $request->titulo;
+            $encuesta->descripcion = $request->descripcion;
+            $encuesta->created_by = auth()->user()->id;
+            $encuesta->save();
+
+            $usuarios = User::where('estado', 'Activo')->get();
+
+            foreach ($usuarios as $value) {
+                $voto_user = new VotoUser();
+                $voto_user->iduser = $value->id;
+                $voto_user->idencuesta = $encuesta->idencuesta;
+                $voto_user->idopcion = 1;
+                $voto_user->voto = 'No';
+                $voto_user->save();
+            }
             
-            $http_response["encuesta"] = $Encuesta->idencuesta;
+            $http_response["encuesta"] = $encuesta->idencuesta;
             $http_response["response"] = true;
             $http_response["message"] = "Guardado";
         
@@ -158,6 +170,10 @@ class EncuestaController extends Controller
 
         foreach ($encuesta->encuesta_opciones as $key => $value) {
             $total = $total + $value->opcion->num_votos;
+        }
+
+        if($total == 0) {
+            $total = 1;
         }
 
         return view('encuesta.show')
