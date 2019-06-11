@@ -20,9 +20,11 @@ class CreateEncuestaOpcionTable extends Migration
             $table->enum('estado', ['Activo', 'Inactivo'])->default('Activo');
             $table->timestamps();
             $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->foreign('idencuesta')->references('idencuesta')->on('encuestas');
             $table->foreign('idopcion')->references('idopcion')->on('opciones');
             $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 

@@ -20,7 +20,9 @@ class CreateOpcionesTable extends Migration
             $table->enum('estado', ['Activo', 'Inactivo'])->default('Activo');
             $table->timestamps();
             $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 
