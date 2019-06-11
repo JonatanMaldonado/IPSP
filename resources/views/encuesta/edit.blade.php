@@ -33,7 +33,14 @@
 
                         <div id="collapse{{ $opcion->opcion->idopcion }}" class="collapse" aria-labelledby="card{{ $opcion->opcion->idopcion }}" data-parent="#accordionOpcion">
                             <div class="card-body">
-                                El {{ $opcion->opcion->opcion }} es el mejor perro de todos debido a esto y esto otro, por eso y por mas, llego a la conclusion de que es el mejor perro.
+                                <div class="form-group">
+                                    <label for="opcion_nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="opcion_nombre{{ $opcion->opcion->idopcion }}" value="{{ $opcion->opcion->opcion }}">
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-outline-secondary btn_opcion" x-idopcion="{{ $opcion->opcion->idopcion }}" x-accion="editar">Actualizar</button>
+                                    <button class="btn btn-outline-danger btn_opcion" x-idopcion="{{ $opcion->opcion->idopcion }}" x-accion="eliminar">Eliminar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -99,10 +106,10 @@
 
 
             //Alertas de bootstrap
-            var input_vacio = $('#opcionAlertDanger');
-            var opcion_creada = $('#opcionAlertSuccess');
-            var actualizarAlertDanger = $('#actualizarAlertDanger');
-            var actualizarAlertSuccess = $('#actualizarAlertSuccess');
+            let input_vacio = $('#opcionAlertDanger');
+            let opcion_creada = $('#opcionAlertSuccess');
+            let actualizarAlertDanger = $('#actualizarAlertDanger');
+            let actualizarAlertSuccess = $('#actualizarAlertSuccess');
 
             input_vacio.hide();
             opcion_creada.hide();
@@ -132,13 +139,13 @@
                                 $('#input_opcion').val('');
                                 $("#accordionOpcion").load(" #accordionOpcion");
                             }else{
-                            console.log(response.message)
+                                console.log(response.message)
                             }
                         
                         },
                         error: function(xhr, testStatus, errorThrown){
                             console.log(xhr, testStatus, errorThrown);
-                            console.log("Error al realizar la petición, favor comunicarse con su administrador")
+                            console.log("Error al realizar la petición, favor comunicarse con su administrador");
                         }
                     });
 
@@ -151,10 +158,10 @@
 
             //Funcion para editar una encuesta
             $('#btnActualizarEncuesta').on('click', function(){
-                var titulo_db = '{{ $encuesta->titulo }}';
-                var descripcion_db = '{{ $encuesta->descripcion }}';
-                var titulo_actual = $('#txtTitulo').val();
-                var descripcion_actual = $('#txtDescripcion').val();
+                let titulo_db = '{{ $encuesta->titulo }}';
+                let descripcion_db = '{{ $encuesta->descripcion }}';
+                let titulo_actual = $('#txtTitulo').val();
+                let descripcion_actual = $('#txtDescripcion').val();
 
                 if(titulo_actual.trim() != titulo_db || descripcion_actual.trim() != descripcion_db){
                     $.ajax({
@@ -168,20 +175,61 @@
                                 actualizarAlertDanger.hide();
                                 actualizarAlertSuccess.show();
                             }else{
-                            console.log(response.message)
+                                console.log(response.message);
                             }
                         
                         },
                         error: function(xhr, testStatus, errorThrown){
                             console.log(xhr, testStatus, errorThrown);
-                            console.log("Error al realizar la petición, favor comunicarse con su administrador")
+                            console.log("Error al realizar la petición, favor comunicarse con su administrador");
                         }
                     });
                     
                 }else{
-                    actualizarAlertDanger.show("slow")
-                    actualizarAlertSuccess.hide()
+                    actualizarAlertDanger.show("slow");
+                    actualizarAlertSuccess.hide();
                 }
+            });
+
+            $(document).on('click', '.btn_opcion', function() {
+                let accion = $(this).attr('x-accion');
+                let idopcion = $(this).attr('x-idopcion');
+                let opcion = $('#opcion_nombre' + idopcion).val();
+                let token = '{{ csrf_token() }}';
+                let url = '';
+                let data = {};
+
+                switch (accion) {
+                    case 'editar':
+                        url = '{{ route("opcion.fn.editar") }}';
+                        data = { _token: token, id: idopcion, opcion: opcion }
+                        break;
+
+                    case 'eliminar':
+                        url = '{{ route("opcion.fn.eliminar") }}';
+                        data = { _token: token, id: idopcion }
+                        break;
+                }
+
+                $.ajax({
+                    data: data,
+                    url: url,
+                    type: "PUT",
+                    dataType: "json",
+                    success:  function (response) { 
+                        if(response.response){
+                            alert(response.message);
+                            $("#accordionOpcion").load(" #accordionOpcion");
+                        }else{
+                            console.log(response.message)
+                        }
+                    
+                    },
+                    error: function(xhr, testStatus, errorThrown){
+                        console.log(xhr, testStatus, errorThrown);
+                        console.log("Error al realizar la petición, favor comunicarse con su administrador")
+                    }
+                });
             });
 
         });

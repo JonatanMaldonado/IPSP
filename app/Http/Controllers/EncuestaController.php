@@ -50,6 +50,7 @@ class EncuestaController extends Controller
             $encuesta->titulo = $request->titulo;
             $encuesta->descripcion = $request->descripcion;
             $encuesta->created_by = auth()->user()->id;
+            $encuesta->updated_by = auth()->user()->id;
             $encuesta->save();
 
             $usuarios = User::where('estado', 'Activo')->get();
@@ -87,6 +88,7 @@ class EncuestaController extends Controller
             $encuesta = Encuesta::find($request->id);
             $encuesta->titulo = $request->titulo;
             $encuesta->descripcion = $request->descripcion;
+            $encuesta->updated_by = auth()->user()->id;
             $encuesta->save();
             
             $http_response["response"] = true;
@@ -113,15 +115,16 @@ class EncuestaController extends Controller
             $opcion = new Opcion();
             $opcion->opcion = $request->opcion;
             $opcion->created_by = auth()->user()->id;
+            $opcion->updated_by = auth()->user()->id;
             $opcion->save();
 
             $encuesta_actual = Encuesta::where('estado', 'Activo')->find($request->id);
-            $opcion_actual = Opcion::where('estado', 'Activo')->orderBy('idopcion', 'DESC')->first();
 
             $encuesta_opcion = new EncuestaOpcion();
             $encuesta_opcion->idencuesta = $encuesta_actual->idencuesta;
-            $encuesta_opcion->idopcion = $opcion_actual->idopcion;
+            $encuesta_opcion->idopcion = $opcion->idopcion;
             $encuesta_opcion->created_by = auth()->user()->id;
+            $encuesta_opcion->updated_by = auth()->user()->id;
             $encuesta_opcion->save();
 
             $http_response["encuesta"] = $request->id;
@@ -208,6 +211,60 @@ class EncuestaController extends Controller
             $http_response["voto"] = $voto;
             $http_response["response"] = true;
             $http_response["message"] = "Guardado";
+        
+        }else{
+            $http_response["message"] = "Acceso no autorizado";
+        }
+        
+        return response()->json($http_response);
+    }
+
+    /**
+     * Funcion para editar opciones.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editarOpcion(Request $request){
+        
+        $http_response = array("response" => false, "message" => "Error");
+        
+        if ($request->ajax()) {
+
+            $opcion = Opcion::find($request->id);
+            $opcion->opcion = $request->opcion;
+            $opcion->updated_by = auth()->user()->id;
+            $opcion->save();
+        
+            $http_response["response"] = true;
+            $http_response["message"] = "La opción se modifico exitosamente.";
+        
+        }else{
+            $http_response["message"] = "Acceso no autorizado";
+        }
+        
+        return response()->json($http_response);
+    }
+
+    /**
+     * Funcion para eliminar opciones.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function eliminarOpcion(Request $request){
+        
+        $http_response = array("response" => false, "message" => "Error");
+        
+        if ($request->ajax()) {
+
+            $encuesta_opcion = EncuestaOpcion::where('idopcion', $request->id)->first();
+            $encuesta_opcion->estado = 'Inactivo';
+            $encuesta_opcion->updated_by = auth()->user()->id;
+            $encuesta_opcion->save();
+        
+            $http_response["response"] = true;
+            $http_response["message"] = "La opción se elimino exitosamente.";
         
         }else{
             $http_response["message"] = "Acceso no autorizado";
