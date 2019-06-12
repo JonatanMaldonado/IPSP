@@ -69,7 +69,7 @@
                                     $valor = round($valor);
                                 @endphp
 
-                                {{ $item->opcion->opcion }}
+                                {{ $item->opcion->opcion }} <span class="text-muted">({{ $item->opcion->num_votos }})</span>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color[$key] }} text-dark font-weight-bold" role="progressbar" style="width: {{ $valor }}%">{{ $valor }}%</div>
                                 </div><hr>
