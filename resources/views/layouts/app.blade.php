@@ -54,7 +54,7 @@
                             @endif
                         @else
                             <div class="dropdown-divider"></div>
-                                <a class="nav-link" href="#"><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
+                                <a class="nav-link" href="{{ route('perfil.show', Auth::user()->id) }}"><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
 
                                 <div>
                                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
