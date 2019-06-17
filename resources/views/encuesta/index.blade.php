@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-footer text-center">
                         
-                        <a href="{{ route('encuesta.show', $encuesta->idencuesta) }}" class="btn btn-success col-5">Votar</a>
+                        <a href="{{ route('encuesta.show', $encuesta->idencuesta) }}" class="btn btn-success col-5" disabled>Votar</a>
                         
                         @if (auth()->user()->user_type == 'Admin')
                             <a href="{{ route('encuesta.showEdit', $encuesta->idencuesta) }}" class="btn btn-success col-5">Editar</a>
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button id="btnCrearEncuesta" class="btn btn-success">Crear</button>
+                <button id="btnCrearEncuesta" data-dismiss="modal" class="btn btn-success">Crear</button>
             </div>
         </div>
     </div>
@@ -85,6 +85,10 @@
                         url:  "{{ route('encuesta.fn.crear') }}",
                         type: 'POST',
                         dataType: "json",
+                        beforeSend: () => {
+                            $('.btn').attr('disabled', true);
+                            $('.btn').addClass('disabled');
+                        },
                         success:  function (response) { 
                             if(response.response){
                                 $("#encuestaList").load(" #encuestaList");
@@ -95,6 +99,7 @@
                         
                         },
                         error: function(xhr, testStatus, errorThrown){
+                            $('button').attr('disabled', false);
                             console.log(xhr, testStatus, errorThrown);
                             //Materialize.toast("Error al realizar la petición, favor comunicarse con su administrador", 4000)
                         }
