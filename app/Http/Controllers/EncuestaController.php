@@ -29,7 +29,7 @@ class EncuestaController extends Controller
      */
     public function index()
     {
-        $encuestas = Encuesta::where('estado', 'Activo')->orderBy('created_at', 'DESC')->paginate(8);
+        $encuestas = Encuesta::where('estado', 'Activo')->orderBy('created_at', 'DESC')->paginate(5);
 
         return view('encuesta.index')->with('encuestas', $encuestas);
     }
