@@ -23,7 +23,7 @@
                         @forelse ($encuesta_opciones as $opcion)
                             <button class="btn btn-primary btn-block votar" style="margin-bottom: 10px;" x-idopcion="{{ $opcion->opcion->idopcion }}">{{ $opcion->opcion->opcion }}</button>    
                         @empty
-                            <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
+                            <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                         @endforelse
                         <a class="btn btn-outline-dark btn-block resultados" data-toggle="modal" data-target="#exampleModal">Resultados</a>
                     </div>  
@@ -32,7 +32,7 @@
                         @forelse ($encuesta_opciones as $opcion)
                             <button class="btn btn-primary btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
                         @empty
-                            <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
+                            <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                         @endforelse
                         <a class="btn btn-outline-dark btn-block resultados" data-toggle="modal" data-target="#exampleModal">Resultados</a>
                     </div>
@@ -42,11 +42,11 @@
                 <h5>Opciones</h5>
 
                 <div class="mb-3">
-                    <span class="text-muted"><em>Esta encuesta ya termino.</em></span>
+                    <span class="text-muted"><em>Esta votación ya termino.</em></span>
                     @forelse ($encuesta_opciones as $opcion)
                         <button class="btn btn-primary btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
                     @empty
-                        <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
+                        <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                     @endforelse
                     <a class="btn btn-outline-dark btn-block resultados" data-toggle="modal" data-target="#exampleModal">Resultados</a>
                 </div>
@@ -74,7 +74,7 @@
                                     <div class="progress-bar progress-bar-striped progress-bar-animated {{ $color[$key] }} text-dark font-weight-bold" role="progressbar" style="width: {{ $valor }}%">{{ $valor }}%</div>
                                 </div><hr>
                             @empty
-                                <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
+                                <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                             @endforelse
                                 
                         </div>
@@ -89,7 +89,7 @@
 
         @if (auth()->user()->user_type == 'Admin')
             <div class="card-footer text-center">
-                <a href="{{ route('encuesta.showEdit', $encuesta->idencuesta) }}" class="btn btn-success">Editar Encuesta</a>
+                <a href="{{ route('encuesta.showEdit', $encuesta->idencuesta) }}" class="btn btn-success">Editar Votación</a>
             </div>             
         @endif
         
@@ -113,7 +113,6 @@
                         success:  function (response) { 
                             if(response.response){
                                 $('.votar').attr("disabled", true);
-                                alert('Votaste por: ' + opcion);
                             }else{
                             //Materialize.toast(response.message, 4000)
                             }
