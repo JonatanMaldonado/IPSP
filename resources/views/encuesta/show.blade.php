@@ -20,8 +20,8 @@
 
                 @if ($validacion->voto == 'No')
                     <div class="mb-3">
-                        @forelse ($encuesta_opciones as $opcion)
-                            <button class="btn btn-primary btn-block votar" style="margin-bottom: 10px;" x-idopcion="{{ $opcion->opcion->idopcion }}">{{ $opcion->opcion->opcion }}</button>    
+                        @forelse ($encuesta_opciones as $key => $opcion)
+                            <button class="btn {{ $color[$key] }} btn-block votar" style="margin-bottom: 10px;" x-idopcion="{{ $opcion->opcion->idopcion }}">{{ $opcion->opcion->opcion }}</button>    
                         @empty
                             <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                         @endforelse
@@ -29,8 +29,8 @@
                     </div>  
                 @else
                     <div class="mb-3">
-                        @forelse ($encuesta_opciones as $opcion)
-                            <button class="btn btn-primary btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
+                        @forelse ($encuesta_opciones as $key => $opcion)
+                            <button class="btn {{ $color[$key] }} btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
                         @empty
                             <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                         @endforelse
@@ -43,8 +43,8 @@
 
                 <div class="mb-3">
                     <span class="text-muted"><em>Esta votación ya termino.</em></span>
-                    @forelse ($encuesta_opciones as $opcion)
-                        <button class="btn btn-primary btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
+                    @forelse ($encuesta_opciones as $key => $opcion)
+                        <button class="btn {{ $color[$key] }} btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
                     @empty
                         <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                     @endforelse
@@ -79,6 +79,7 @@
                                 
                         </div>
                         <div class="modal-footer">
+                            <a href="{{ route('resultado.show', $encuesta->idencuesta) }}" class="btn btn-primary">Datos</a>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>

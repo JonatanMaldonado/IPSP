@@ -21,4 +21,7 @@ class VotoUser extends Model
 
     protected $guarded = [];
 
+    public function usuario() {
+        return $this->belongsTo('App\User', 'iduser');
+    }
 }

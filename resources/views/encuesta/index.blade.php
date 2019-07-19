@@ -17,6 +17,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $encuesta->titulo }}</h5>
                         <p class="card-text">{{ $encuesta->descripcion }}</p>
+                        <div class="row justify-content-end text-muted">{{ $encuesta->created_at->format('d/m/Y') }}</div>
                     </div>
                     <div class="card-footer text-center">
                         

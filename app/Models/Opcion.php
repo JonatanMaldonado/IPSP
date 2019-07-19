@@ -21,5 +21,7 @@ class Opcion extends Model
 
     protected $guarded = [];
 
-    
+    public function votos() {
+        return $this->hasMany('App\Models\VotoUser', 'idopcion')->where('voto', 'Si');
+    }
 }
