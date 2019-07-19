@@ -167,7 +167,7 @@ class EncuestaController extends Controller
 
         $validacion = VotoUser::where('iduser', auth()->user()->id)->where('idencuesta', $encuesta->idencuesta)->first();
 
-        $color = ['bg-primary', 'bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-dark'];
+        $color = ['bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info'];
 
         $total = 0;
 
