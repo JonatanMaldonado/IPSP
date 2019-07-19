@@ -7,7 +7,7 @@
         
         @if (auth()->user()->user_type == 'Admin')
             {{-- Boton para activar el modal de encuestas --}}
-            <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal">Crear Encuesta</button>
+            <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal">Crear Votación</button>
             <br>
         @endif        
 
@@ -28,7 +28,7 @@
                     </div>
                 </div> <br>
             @empty
-                <span class="text-muted"><em>No se encontro ninguna encuesta.</em></span>
+                <span class="text-muted"><em>No se encontro ninguna votación.</em></span>
             @endforelse
 
             <div class="row justify-content-center">{{ $encuestas->links() }}</div>
@@ -42,7 +42,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Crear Encuesta</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Crear Votación</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -53,11 +53,11 @@
                     <label for="inputEmail4">Titulo</label>
                     <input type="text" class="form-control" id="input_titulo" name="titulo">
                     <div id="tituloAlert" class="alert alert-danger" role="alert">
-                        <span>La encuesta debe tener un titulo</span>
+                        <span>La votación debe tener un titulo</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword4">Descripcion</label>
+                    <label for="inputPassword4">Descripción</label>
                     <input type="text" class="form-control" id="input_descripcion" name="descripcion">
                 </div>
             </div>

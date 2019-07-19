@@ -4,7 +4,7 @@
     @if(auth()->user()->user_type == 'Admin')
     <div class="card">
         <div class="card-header text-center">
-            <h5>Editar Encuesta</h5>
+            <h5>Editar Votación</h5>
             
         </div>
         <div class="card-body">
@@ -17,7 +17,7 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Descripcion</span>
+                    <span class="input-group-text">Descripción</span>
                 </div>
                 <textarea class="form-control autoHeight" id="txtDescripcion" rows="1" aria-label="With textarea">{{ $encuesta->descripcion }}</textarea>
             </div>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 @empty
-                    <span class="text-muted"><em>No hay opciones en esta encuesta.</em></span>
+                    <span class="text-muted"><em>No hay opciones en esta votación.</em></span>
                 @endforelse
             </div>
             
@@ -55,7 +55,7 @@
             <button id="btnActualizarEncuesta" class="btn btn-outline-success">Actualizar</button>
             <a class="btn btn-outline-success" href="{{ route('encuesta.show', $encuesta->idencuesta) }}">Votar</a>
             <div id="actualizarAlertDanger" class="alert alert-danger" role="alert">
-                <span>¡Edite el titulo o la descripcion!</span>
+                <span>¡Edite el titulo o la descripción!</span>
             </div>
             <div id="actualizarAlertSuccess" class="alert alert-success" role="alert">
                 <span>¡Actualizado!</span>
@@ -94,7 +94,7 @@
         </div>
     </div>
     @else
-    <span class="text-muted"><em>No tienes los permisos para editar encuestas.</em></span>
+    <span class="text-muted"><em>No tienes los permisos para editar votaciones.</em></span>
     @endif
     
     <script type="text/javascript">
