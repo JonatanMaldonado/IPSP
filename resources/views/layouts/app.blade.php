@@ -27,7 +27,7 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #EFF8FB;">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{-- config('app.name', 'Laravel') --}}<img src="{{ asset('img/IPSP.ico') }}" alt="IPSP icon" width="15%">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
