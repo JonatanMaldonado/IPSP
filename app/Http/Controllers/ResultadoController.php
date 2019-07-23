@@ -60,8 +60,9 @@ class ResultadoController extends Controller
     public function show($id)
     {
         $votacion = Encuesta::find($id);
+        $color = ['bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info'];
 
-        return view('resultado.show')->with('votacion', $votacion);
+        return view('resultado.show')->with('votacion', $votacion)->with('color', $color);
     }
 
     /**

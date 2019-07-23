@@ -8,14 +8,14 @@
         <div class="card-body">
             <p class="card-text">{{ $votacion->descripcion }}</p>
 
-            @foreach ($votacion->encuesta_opciones as $encuesta_opcion)
+            @foreach ($votacion->encuesta_opciones as $key => $encuesta_opcion)
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active text-center">
+                    <a class="list-group-item {{ $color[$key] }} text-center">
                       {{ $encuesta_opcion->opcion->opcion }}
                     </a>
                     
                     @foreach ($encuesta_opcion->opcion->votos as $voto)
-                        <a href="#" class="list-group-item list-group-item-action">{{ $voto->usuario->name }}</a>
+                        <a class="list-group-item">{{ $voto->usuario->name }}</a>
                     @endforeach
 
                 </div><br>
