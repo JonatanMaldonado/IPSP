@@ -2,9 +2,8 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header text-center">¡Bienvenido {{ Auth::user()->name }}!</div>
+    <div class="card-header text-center"><h5>IPSP - Votaciones</h5></div>
     <div class="card-body">
-        
         @if (auth()->user()->user_type == 'Admin')
             {{-- Boton para activar el modal de encuestas --}}
             <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#crearEncuestaModal">Crear Votación</button>

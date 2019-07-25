@@ -14,7 +14,9 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        //
+        $nada = bcrypt('secret');
+
+        return view('perfil.index')->with('pass', $nada);
     }
 
     /**
@@ -46,9 +48,8 @@ class PerfilController extends Controller
      */
     public function show($id)
     {
-        $nada = bcrypt('secret');
         
-        return view('perfil.show')->with('pass', $nada);
+        
     }
 
     /**

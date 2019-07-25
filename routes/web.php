@@ -20,6 +20,6 @@ Route::put('/votacion/fn/voto_user', 'EncuestaController@votoUser')->name('encue
 Route::put('/opcion/fn/editar_opcion', 'EncuestaController@editarOpcion')->name('opcion.fn.editar');
 Route::put('/opcion/fn/eliminar_opcion', 'EncuestaController@eliminarOpcion')->name('opcion.fn.eliminar');
 
-Route::get('/perfil/{id}', 'PerfilController@show')->name('perfil.show');
+Route::get('/perfil', 'PerfilController@index')->name('perfil.index');
 
 //Route::get('/home', 'HomeController@index')->name('home');
