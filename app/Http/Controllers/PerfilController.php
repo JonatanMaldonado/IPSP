@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
+use App\User;
 
 class PerfilController extends Controller
 {
@@ -15,8 +17,6 @@ class PerfilController extends Controller
     public function index()
     {
         $nada = bcrypt('secret');
-
-        return view('perfil.index')->with('pass', $nada);
     }
 
     /**
@@ -46,10 +46,9 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        
-        
+        return view('perfil.show');
     }
 
     /**
@@ -58,9 +57,9 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('perfil.edit');
     }
 
     /**
@@ -70,9 +69,33 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $http_response = array("response" => false, "message" => "Error");
+        
+        if ($request->ajax()) {
+            $mensaje = null;
+            $old_password = Hash::check($request->inputOldPassword, auth()->user()->password);
+            if($old_password) {
+                $pass = Hash::make($request->inputNewPassword);
+
+                $user = User::find(auth()->user()->id);
+                $user->password = $pass;
+                $user->save();
+
+            }else {
+                $mensaje = 'La contraseña anterior es incorrecta.';
+            }
+
+            $http_response["validar"] = $mensaje;
+            $http_response["response"] = true;
+            $http_response["message"] = "La contraseña se cambio exitosamente.";
+        
+        }else{
+            $http_response["message"] = "Acceso no autorizado";
+        }
+        
+        return response()->json($http_response);
     }
 
     /**

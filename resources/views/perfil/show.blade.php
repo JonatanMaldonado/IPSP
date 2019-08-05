@@ -1,21 +1,53 @@
 @extends('layouts.app')
+
 @section('content')
-    <h5>{{ Auth::user()->name }}</h5>
+    <style>
+        .btn-circle.btn-lg {
+            width: 56px;
+            height: 56px;
+            padding: 10px 16px;
+            font-size: 18px;
+            line-height: 1.33;
+            border-radius: 28px;
+        }
+    </style>
     <ul class="list-unstyled">
         
-        <li class="media my-4">
-            <i class="fas fa-user"></i> 
-            <div class="media-body">
-            <h5 class="mt-0 mb-1">List-based media object</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        <li>
+            <div class="row">
+                <div class="col-2 d-flex justify-content-end align-items-center">
+                    <i class="fas fa-user"></i> 
+                </div>
+                <div class="col-10">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ Auth::user()->name }}</h5>
+                        <p class="card-text">Nombre</p>
+                    </div>
+                </div>
             </div>
         </li>
-        <li class="media">
-            <i class="fas fa-user"></i> 
-            <div class="media-body">
-            <h5 class="mt-0 mb-1">List-based media object</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        <div class="row">
+            <div class="col-2 d-flex justify-content-end align-items-center">
+                <i class="fas fa-at"></i> 
             </div>
-        </li>
+            <div class="col-10">
+                <div class="card-body">
+                    <h5 class="card-title">{{ Auth::user()->email }}</h5>
+                    <p class="card-text">Correo</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 d-flex justify-content-end align-items-center">
+                <i class="fas fa-key"></i> 
+            </div>
+            <div class="col-10">
+                <div class="card-body">
+                    <h5 class="card-title">●●●●●●</h5>
+                    <p class="card-text">Contraseña</p>
+                </div>
+            </div>
+        </div>
     </ul>
+    <a class="float-right btn-lg btn-circle btn-primary d-flex justify-content-center align-items-center text-white" href="{{ route('perfil.edit') }}"><i class="fas fa-pen"></i></a>
 @endsection

@@ -20,6 +20,8 @@ Route::put('/votacion/fn/voto_user', 'EncuestaController@votoUser')->name('encue
 Route::put('/opcion/fn/editar_opcion', 'EncuestaController@editarOpcion')->name('opcion.fn.editar');
 Route::put('/opcion/fn/eliminar_opcion', 'EncuestaController@eliminarOpcion')->name('opcion.fn.eliminar');
 
-Route::get('/perfil', 'PerfilController@index')->name('perfil.index');
+Route::get('/perfil', 'PerfilController@show')->name('perfil.show');
+Route::get('/perfil/edit', 'PerfilController@edit')->name('perfil.edit');
+Route::post('/perfil/fn/editar_perfil', 'PerfilController@update')->name('perfil.update');
 
 //Route::get('/home', 'HomeController@index')->name('home');
