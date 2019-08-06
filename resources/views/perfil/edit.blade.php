@@ -31,11 +31,11 @@
                     </div>
                 </div>
             </form>
-            <button type="button" class="btn btn-primary" id="guardar">Cambiar Contraseña</button>
+            <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
         
             <div class="toast" style="position: absolute; top: 0; right: 0;">
                 <div class="toast-body" style="background-color:#2E2E2E; color:white;">
-                    <span id="toast">Este es un mensaje largo para saber que pex con el tamaño del toast de bootstrap xd.</span>
+                    <span id="toast">Notificación</span>
                     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -60,7 +60,9 @@
                                     toast(response.validar, 4000);
                                 }else {
                                     toast(response.message, 5000);
+                                    
                                 }
+
                             }
                         },
                         error: function(xhr, testStatus, errorThrown){

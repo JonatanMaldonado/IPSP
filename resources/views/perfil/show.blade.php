@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-10">
                     <div class="card-body">
-                        <h5 class="card-title">{{ Auth::user()->name }}</h5>
+                        <h6 class="card-title">{{ Auth::user()->name }}</h6>
                         <p class="card-text">Nombre</p>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
             </div>
             <div class="col-10">
                 <div class="card-body">
-                    <h5 class="card-title">{{ Auth::user()->email }}</h5>
+                    <h6 class="card-title">{{ Auth::user()->email }}</h6>
                     <p class="card-text">Correo</p>
                 </div>
             </div>
@@ -43,7 +43,7 @@
             </div>
             <div class="col-10">
                 <div class="card-body">
-                    <h5 class="card-title">●●●●●●</h5>
+                    <h6 class="card-title">●●●●●●</h6>
                     <p class="card-text">Contraseña</p>
                 </div>
             </div>
