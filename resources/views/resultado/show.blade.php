@@ -20,6 +20,17 @@
 
                 </div><br>
             @endforeach
+            <hr>
+            <div class="list-group">
+                <a class="list-group-item text-center" style="background-color: cadetblue;">
+                    No votaron
+                </a>
+                @forelse ($no_votaron as $item)
+                    <a class="list-group-item">{{ $item->usuario->name }}</a>
+                @empty
+                    <a class="list-group-item text-muted">Ya todos votaron</a>
+                @endforelse
+            </div>
         </div>
     </div>
 @endsection

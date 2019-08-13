@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Encuesta;
+use App\Models\VotoUser;
 
 class ResultadoController extends Controller
 {
@@ -62,7 +63,9 @@ class ResultadoController extends Controller
         $votacion = Encuesta::find($id);
         $color = ['bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-dark', 'bg-info'];
 
-        return view('resultado.show')->with('votacion', $votacion)->with('color', $color);
+        $sin_votar = VotoUser::where('idencuesta', $votacion->idencuesta)->where('voto', 'No')->get();
+
+        return view('resultado.show')->with('votacion', $votacion)->with('color', $color)->with('no_votaron', $sin_votar);
     }
 
     /**

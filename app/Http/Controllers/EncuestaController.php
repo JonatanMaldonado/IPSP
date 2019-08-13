@@ -53,7 +53,7 @@ class EncuestaController extends Controller
             $encuesta->updated_by = auth()->user()->id;
             $encuesta->save();
 
-            $usuarios = User::where('estado', 'Activo')->get();
+            $usuarios = User::where('estado', 'Activo')->where('user_type', 'Member')->get();
 
             foreach ($usuarios as $value) {
                 $voto_user = new VotoUser();
