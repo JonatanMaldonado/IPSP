@@ -47,11 +47,9 @@
                                 <a class="nav-link" href="{{ route('login') }}">Iniciar Sesión</a>
                             </li>
                             <div class="dropdown-divider"></div>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Registrase</a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link">Ayuda</a>
+                            </li>
                         @else
                             <div class="dropdown-divider"></div>
                             <a class="nav-link" href="{{ route('perfil.show') }}"><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
@@ -59,6 +57,9 @@
                             <div class="dropdown-divider"></div>
                             <a class="nav-link" href="{{ route('home') }}">Votaciones</a>
                             <a class="nav-link" href="{{ route('resultado.index') }}">Resultados</a>
+                            @if (Auth::user()->user_type == 'Admin')
+                                <a class="nav-link" href="{{ route('register') }}">Crear Usuario</a>
+                            @endif
                             <div class="dropdown-divider"></div>
 
                             <div>
