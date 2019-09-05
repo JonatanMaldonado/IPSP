@@ -9,16 +9,11 @@
         <div class="card-body">
             <p class="card-text">{{ $encuesta->descripcion }}</p>
             
-            @if ($validacion)
-
+            @if ($validacion && Auth::user()->user_type == 'Member')
                 <hr>
-                @if ($validacion->voto == 'Si')
-                    <h5>Opciones<span class="text-muted"><em>(Ya votaste)</em></span></h5>
-                @else
-                    <h5>Opciones</h5>
-                @endif
 
                 @if ($validacion->voto == 'No')
+                <h5>Opciones</h5>
                     <div class="mb-3">
                         @forelse ($encuesta_opciones as $key => $opcion)
                             <button class="btn {{ $color[$key] }} btn-block votar" style="margin-bottom: 10px;" x-idopcion="{{ $opcion->opcion->idopcion }}">{{ $opcion->opcion->opcion }}</button>    
@@ -28,6 +23,7 @@
                         <a class="btn btn-outline-dark btn-block resultados" data-toggle="modal" data-target="#exampleModal">Resultados</a>
                     </div>  
                 @else
+                <h5>Opciones<span class="text-muted"><em>(Ya votaste)</em></span></h5>
                     <div class="mb-3">
                         @forelse ($encuesta_opciones as $key => $opcion)
                             <button class="btn {{ $color[$key] }} btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
@@ -42,7 +38,7 @@
                 <h5>Opciones</h5>
 
                 <div class="mb-3">
-                    <span class="text-muted"><em>Esta votación ya termino.</em></span>
+                    <span class="text-muted"><em>No puedes votar.</em></span>
                     @forelse ($encuesta_opciones as $key => $opcion)
                         <button class="btn {{ $color[$key] }} btn-block disabled" style="margin-bottom: 10px;">{{ $opcion->opcion->opcion }}</button>
                     @empty

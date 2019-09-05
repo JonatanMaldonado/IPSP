@@ -26,7 +26,9 @@
                     No votaron
                 </a>
                 @forelse ($no_votaron as $item)
-                    <a class="list-group-item">{{ $item->usuario->name }}</a>
+                    @if ($item->usuario->user_type == 'Member')
+                        <a class="list-group-item">{{ $item->usuario->name }}</a>
+                    @endif
                 @empty
                     <a class="list-group-item text-muted">Ya todos votaron</a>
                 @endforelse
